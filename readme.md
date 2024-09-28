@@ -2,7 +2,7 @@
 
 The application is designed to simplify the process of adding download tasks to DownloadStation on your Synology DiskStation.
 
-After upgrading my DS214SE, I found that this application could not connect anymore to DownloadStation.
+After upgrading my DS214SE to DSM 7, I found that this application could not connect anymore to DownloadStation.
 So I gave a try to update the API requests and got it working.
 
 Big thanks to:
