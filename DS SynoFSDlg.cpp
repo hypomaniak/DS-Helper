@@ -135,7 +135,11 @@ void CDSSynoFSDlg::ShowSynoFSTree()
 	//http://myds.com:port/webapi/FileStation/file_share.cgi?api=SYNO.FileStation.List&version=1&method=list_share
 	//403 Forbidden issue: forum.synology.com/enu/viewtopic.php?t=109631
   
-	URL = (DSHelperApp->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + DSHelperApp->m_AppAddress + L":" + DSHelperApp->m_AppPort + L"/webapi/entry.cgi?api=SYNO.FileStation.List&version=1&method=list_share&sid=" + DSHelperApp->m_AppSID;
+	URL = (DSHelperApp->m_AppEnumProto == HTTPS ? L"https://" : L"http://")
+		+ DSHelperApp->m_AppAddress
+		+ L":" + DSHelperApp->m_AppPort
+		+ L"/webapi/entry.cgi?api=SYNO.FileStation.List&version=1&method=list_share&_sid="
+		+ DSHelperApp->m_AppSID;
 	Response = DSHelperApp->m_pAppSynoConnect->GetURL(DSHelperApp->m_AppEnumProto, &URL, true);
 
 	if (Response.code != 200)
@@ -225,7 +229,7 @@ void CDSSynoFSDlg::OnTvnItemexpandingTreeSyno(NMHDR *pNMHDR, LRESULT *pResult)
 		CString URL = (DSHelperApp->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + DSHelperApp->m_AppAddress + L":" + DSHelperApp->m_AppPort \
 			+ L"/webapi/entry.cgi?api=SYNO.FileStation.List&version=2&method=list&folder_path=%22" \
 			+ DSHelperApp->m_pAppSynoConnect->Urlencode((CString*)m_Tree.GetItemData(hTreeItem)).GetString() \
-			+ L"%22&filetype=dir&sid=" + DSHelperApp->m_AppSID;
+			+ L"%22&filetype=dir&_sid=" + DSHelperApp->m_AppSID;
 		
 		Response = DSHelperApp->m_pAppSynoConnect->GetURL(DSHelperApp->m_AppEnumProto, &URL, true);
 
@@ -317,7 +321,7 @@ void CDSSynoFSDlg::OnBnClickedButtonCreateFolderOnSyno()
 	CString URL = (DSHelperApp->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + DSHelperApp->m_AppAddress + L":" + DSHelperApp->m_AppPort \
 		+ L"/webapi/entry.cgi?api=SYNO.FileStation.CreateFolder&version=2&method=create&folder_path=%22" \
 		+ DSHelperApp->m_pAppSynoConnect->Urlencode((CString*)m_Tree.GetItemData(hTreeItem)).GetString() \
-		+ L"%22&name=%5B%22" + DSHelperApp->m_pAppSynoConnect->Urlencode(&NewFolderName).GetString() + "%22%5D&sid=" + DSHelperApp->m_AppSID;
+		+ L"%22&name=%5B%22" + DSHelperApp->m_pAppSynoConnect->Urlencode(&NewFolderName).GetString() + "%22%5D&_sid=" + DSHelperApp->m_AppSID;
 
 	Response = DSHelperApp->m_pAppSynoConnect->GetURL(DSHelperApp->m_AppEnumProto, &URL, true);
 

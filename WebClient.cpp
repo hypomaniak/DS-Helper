@@ -167,7 +167,7 @@ CString WebClient::GetSynoDSCodeDescription(DWORD code)
 CString WebClient::GetSynoFSCodeDescription(DWORD code)
 {
 	m_it = m_SynoFSCodesDescriptions.find(code);
-	if (m_it != m_SynoDSCodesDescriptions.end())
+	if (m_it != m_SynoFSCodesDescriptions.end())
 		return m_it->second;
 	else
 		return L"unknown";

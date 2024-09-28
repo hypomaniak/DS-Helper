@@ -902,12 +902,22 @@ void CDSHelperDlg::OnBnClickedButtonAddTask()
 
 		if (m_App->m_AppEnumProto == HTTPS)
 		{
-			URL = L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=create&destination=" + Destination + L"&sid=" + m_App->m_AppSID + L"&uri=" + Task;
+			URL = L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=3&method=create&destination="
+				+ Destination
+				+ L"&_sid=" + m_App->m_AppSID
+				/* + L"username=" + m_App->m_AppUsername
+				+ L"password=" + m_App->m_AppPassword*/
+				+ L"&session=DownloadStation"
+				+ L"&uri=" + Task;
 			Response = m_App->m_pAppSynoConnect->GetURL(m_App->m_AppEnumProto, &(m_App->m_AppAddress), &(m_App->m_AppPort), &URL, NULL);
 		}
 		else
 		{
-			URL = CString(L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + +L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=create&destination=" + Destination + L"&sid=" + m_App->m_AppSID + L"&uri=" + Task;
+			URL = CString(L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort
+				+L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=3&method=create&destination=" + Destination
+				+ L"&_sid=" + m_App->m_AppSID
+				+ L"&session=DownloadStation"
+				+ L"&uri=" + Task;
 			Response = m_App->m_pAppSynoConnect->GetURL(m_App->m_AppEnumProto, &URL);
 		}
 		
@@ -1128,7 +1138,10 @@ int CDSHelperDlg::RefreshActiveTasks(bool NeedAuth)
 	CString URL;
 	HTTPResponse Response;
 
-	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=list&additional=transfer&sid=" + m_App->m_AppSID;
+	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://")
+		+ m_App->m_AppAddress + L":" + m_App->m_AppPort
+		+ L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=list&additional=transfer&session=DownloadStation&_sid="
+		+ m_App->m_AppSID;
 	Response = m_ThreadSynoConnect->GetURL(m_App->m_AppEnumProto, &URL, true);
 	
 	if (Response.code != 200)
@@ -1527,7 +1540,7 @@ void CDSHelperDlg::DeleteTask()
 
 	CString id = m_CListActiveTasks.GetItemText(SelectedIndex, 0);
 
-	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=delete&id=" + id + "&sid=" + m_App->m_AppSID;
+	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=delete&id=" + id + "&_sid=" + m_App->m_AppSID;
 	Response = m_ThreadSynoConnect->GetURL(m_App->m_AppEnumProto, &URL, true);
 
 	if (Response.code != 200)
@@ -1611,7 +1624,7 @@ void CDSHelperDlg::PauseTask()
 
 	CString id = m_CListActiveTasks.GetItemText(SelectedIndex, 0);
 
-	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=pause&id=" + id + "&sid=" + m_App->m_AppSID;
+	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=pause&id=" + id + "&_sid=" + m_App->m_AppSID;
 	Response = m_ThreadSynoConnect->GetURL(m_App->m_AppEnumProto, &URL, true);
 
 	if (Response.code != 200)
@@ -1702,7 +1715,7 @@ void CDSHelperDlg::ResumeTask()
 
 	CString id = m_CListActiveTasks.GetItemText(SelectedIndex, 0);
 
-	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=resume&id=" + id + "&sid=" + m_App->m_AppSID;
+	URL = (m_App->m_AppEnumProto == HTTPS ? L"https://" : L"http://") + m_App->m_AppAddress + L":" + m_App->m_AppPort + L"/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=1&method=resume&id=" + id + "&_sid=" + m_App->m_AppSID;
 	Response = m_ThreadSynoConnect->GetURL(m_App->m_AppEnumProto, &URL, true);
 
 	if (Response.code != 200)

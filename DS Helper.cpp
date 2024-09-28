@@ -114,12 +114,23 @@ bool CDSHelperApp::AuthOnSyno(CString* SessionName, CString* strRet)
 
 	if (m_AppEnumProto == HTTPS)
 	{
-		URL = L"/webapi/auth.cgi?api=SYNO.API.Auth&version=2&method=login&account=" + m_AppUsername + L"&passwd=" + m_AppPassword + L"&session=" + SessionName->GetString() + L"&format=sid";
+		URL = L"/webapi/entry.cgi?api=SYNO.API.Auth&version=6&method=login&account="
+			+ m_AppUsername
+			+ L"&passwd=" + m_AppPassword
+			+ L"&session=" + SessionName->GetString()
+			+ L"&format=sid";
+
+
 		Response = m_pAppSynoConnect->GetURL(m_AppEnumProto, &m_AppAddress, &m_AppPort, &URL, NULL);
 	}
 	else
 	{
-		URL = L"http://" + m_AppAddress + L":" + m_AppPort + L"/webapi/auth.cgi?api=SYNO.API.Auth&version=2&method=login&account=" + m_AppUsername + L"&passwd=" + m_AppPassword + L"&session=" + SessionName->GetString() + L"&format=sid";
+		URL = L"http://" + m_AppAddress
+			+ L":" + m_AppPort
+			+ L"/webapi/entry.cgi?api=SYNO.API.Auth&version=6&method=login&account=" + m_AppUsername
+			+ L"&passwd=" + m_AppPassword
+			+ L"&session=" + SessionName->GetString()
+			+ L"&format=sid";
 		Response = m_pAppSynoConnect->GetURL(m_AppEnumProto, &URL);
 	}
 

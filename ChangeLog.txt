@@ -1,3 +1,8 @@
+1.25
+	Fork from https://github.com/xaozai/DS-Helper/
+	Update project to VS2022.
+	Correction for DSM 7.
+
 1.23
 	Added the ability to use a socks proxy.
 	
